@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -54,49 +54,21 @@ public class MainActivity extends Activity {
         View fragmentView;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             fragmentView = rootView;
+
+            //Find the view
             NovaView novaView = (NovaView) rootView.findViewById(R.id.novaview);
 
-            novaView.setDay(1);
-            novaView.setMode(2);
-            novaView.setSchoolClass("n2c");
-            novaView.setSchoolId("52550");
+            //Set some stuff. Pretty straight forvard
+            novaView.setPeriod("Vt");
+            novaView.setDay(NovaView.DAY_MONDAY);
+            novaView.setMode(NovaView.SHOW_DATE);
+            novaView.setId("n2c");
             novaView.setWeekNo(7);
 
-            novaView.loadSchoolUrl();
-
-            Toast.makeText(getActivity(), "Width = " + novaView.getWidth() + " Height = " + novaView.getHeight(), Toast.LENGTH_LONG).show();
             return rootView;
         }
-
-        @Override
-        public void onStart() {
-            super.onStart();
-            final NovaView novaView = (NovaView) fragmentView.findViewById(R.id.novaview);
-            ViewTreeObserver viewTree = novaView.getViewTreeObserver();
-            if (viewTree != null) {
-                viewTree.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                    public boolean onPreDraw() {
-                        int finalHeight = novaView.getMeasuredHeight();
-                        int finalWidth = novaView.getMeasuredWidth();
-                        novaView.viewHeight = finalHeight;
-                        novaView.viewWidth = finalWidth;
-
-                        return true;
-                    }
-                });
-            }
-
-            novaView.setDay(1);
-            novaView.setMode(2);
-            novaView.setSchoolClass("n2c");
-            novaView.setSchoolId("52550");
-            novaView.setWeekNo(7);
-
-            novaView.loadSchoolUrl();
-        }
     }
-
 }
